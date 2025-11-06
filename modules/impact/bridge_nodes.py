@@ -193,6 +193,8 @@ class PreviewBridge:
 
         is_empty_mask = torch.all(mask == 0)
 
+       # 我不想使用阻塞执行的功能，所以注释了以下代码
+        """ 
         if block and is_empty_mask and core.is_execution_model_version_supported():
             from comfy_execution.graph import ExecutionBlocker
             result = ExecutionBlocker(None), ExecutionBlocker(None)
@@ -201,6 +203,9 @@ class PreviewBridge:
             result = pixels, mask
         else:
             result = pixels, mask
+        """
+        # 我增加的代码
+        result = pixels, mask
 
         if not is_empty_mask:
             core.preview_bridge_last_mask_cache[unique_id] = mask
